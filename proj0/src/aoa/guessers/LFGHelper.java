@@ -60,4 +60,60 @@ public class LFGHelper {
         }
         return matchedWord;
     }
+
+    public static List<String> keepOnlyWordsThatMatchPattern(String pattern,
+                                                             List<Character> guess,
+                                                             List<String> words) {
+        // go through each word in the word list. 1. check the length, 2. check the pattern
+        List<String> matchedWord = new ArrayList<>();
+        for (String w : words) {
+            if (w.length() == pattern.length()) {
+                boolean match = true;
+                for (int i=0; i < pattern.length(); i++) {
+                    char c = pattern.charAt(i);
+                    if (Character.isLetter(c)) {
+                        if (w.charAt(i) != c) {
+                            match = false;
+                            break;
+                        }
+                    } else if (guess.contains(w.charAt(i))) {
+                        match = false;
+                        break;
+                    }
+                }
+                if (match)
+                    matchedWord.add(w);
+            }
+        }
+        return matchedWord;
+    }
+
+    public static List<String> EliminateWordsThatNotMatchPattern(String pattern,
+                                                                 List<Character> guesses,
+                                                                 List<String> words)
+    {
+        // find which letter(s) should be excluded
+        List<Character> excludeCharList = new ArrayList<>();
+        for (char c: guesses) {
+            if (pattern.indexOf(c) == -1) {
+                excludeCharList.add(c);
+            }
+        }
+
+        List<String> matchedWord = new ArrayList<>();
+        for (String w : words) {
+            boolean include = true;
+            for (char c: excludeCharList) {
+                if (w.indexOf(c) != -1) {
+                    include = false;
+                    break;
+                }
+            }
+            if (include) {
+                matchedWord.add(w);
+            }
+        }
+        return matchedWord;
+    }
+
 }
