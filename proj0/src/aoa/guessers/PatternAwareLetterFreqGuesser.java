@@ -11,7 +11,7 @@ public class PatternAwareLetterFreqGuesser implements Guesser {
         words = FileUtils.readWords(dictionaryFile);
     }
 
-    private List<String> keepOnlyWordsThatMatchPattern(String pattern) {
+    private List<String> keepOnlyWordsThatMatchPattern1(String pattern) {
         // go through each word in the word list. 1. check the length, 2. check the pattern
         List<String> matchedWord = new ArrayList<>();
         for (String w : words) {
@@ -40,7 +40,7 @@ public class PatternAwareLetterFreqGuesser implements Guesser {
         // TODO: Fill in this method.
         Map<Character, Integer> freqMap = new TreeMap<>();
         Map<Character, Integer> sortedFreqMap = new HashMap<>();
-        List<String> matchedWords = keepOnlyWordsThatMatchPattern(pattern);
+        List<String> matchedWords = LFGHelper.keepOnlyWordsThatMatchPattern(pattern, words);
         freqMap = LFGHelper.getFreqMapThatMatchesPattern(matchedWords);
         sortedFreqMap = LFGHelper.sortedFrequencyMap(freqMap);
         if (freqMap.isEmpty())

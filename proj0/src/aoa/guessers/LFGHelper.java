@@ -37,4 +37,27 @@ public class LFGHelper {
         }
         return temp;
     }
+
+    public static List<String> keepOnlyWordsThatMatchPattern(String pattern,
+                                                             List<String> words) {
+        // go through each word in the word list. 1. check the length, 2. check the pattern
+        List<String> matchedWord = new ArrayList<>();
+        for (String w : words) {
+            if (w.length() == pattern.length()) {
+                boolean match = true;
+                for (int i=0; i < pattern.length(); i++) {
+                    char c = pattern.charAt(i);
+                    if (Character.isLetter(c)) {
+                        if (w.charAt(i) != c) {
+                            match = false;
+                            break;
+                        }
+                    }
+                }
+                if (match)
+                    matchedWord.add(w);
+            }
+        }
+        return matchedWord;
+    }
 }
