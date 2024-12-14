@@ -17,7 +17,8 @@ public class AdventureGame {
                         //Map.of("go", new BeeCountingStage(in))
                         // now debug: SpeciesListStage
                         //Map.of("go", new SpeciesListStage(in))
-                        Map.of("go", new PalindromeStage(in))
+                        //Map.of("go", new PalindromeStage(in))
+                        Map.of("go", new MachineStage(in))
                 )
         );
     }
