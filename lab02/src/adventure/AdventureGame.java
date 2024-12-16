@@ -14,11 +14,11 @@ public class AdventureGame {
                         It's a wonderful day of learning about computer science! We are going to see so many cool things today!
                         Let's go! (To answer the prompts, type the possibilities in the brackets to go to that choice)"
                         """,
-                        //Map.of("go", new BeeCountingStage(in))
+                        Map.of("go", new BeeCountingStage(in))
                         // now debug: SpeciesListStage
                         //Map.of("go", new SpeciesListStage(in))
                         //Map.of("go", new PalindromeStage(in))
-                        Map.of("go", new MachineStage(in))
+                        //Map.of("go", new MachineStage(in))
                 )
         );
     }
