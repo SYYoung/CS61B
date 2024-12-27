@@ -6,6 +6,7 @@ import org.knowm.xchart.SwingWrapper;
 import org.knowm.xchart.XYChart;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Experiments {
@@ -89,6 +90,38 @@ public class Experiments {
         return new TimingData(Ns, times, opCounts);
     }
 
+    public static TimingData timeLinkedListGetLast() {
+        List<Integer> Ns = new ArrayList<>();
+        List<Double> times = new ArrayList<>();
+        List<Integer> opCounts = new ArrayList<>();
+
+        // TODO: YOUR CODE HERE
+        int ops = 100;
+        int startVal = 1000;
+        int endVal = 128000;
+        LinkedList<Integer> myList;
+        for (int N = startVal; N <= endVal; N=N*2) {
+            System.out.print("N value = ");
+            System.out.println(N);
+            Ns.add(N);
+            opCounts.add(ops);
+            // 1. Build a list with N items in SList
+            myList = new LinkedList<>();
+            int i = 0;
+            while (i < N) {
+                myList.addLast(i);
+                i++;
+            }
+            // 2. now measure time to getLast for ops times
+            Stopwatch sw = new Stopwatch();
+            for (int j = 0; j < ops; j++) {
+                int val = myList.get(myList.size()-1);
+            }
+            times.add(sw.elapsedTime());
+        }
+
+        return new TimingData(Ns, times, opCounts);
+    }
 
     public static TimingData timeSLListGetLast() {
         List<Integer> Ns = new ArrayList<>();
@@ -128,10 +161,11 @@ public class Experiments {
         //TimingData td = exampleFibonacciExperiment();
         // modified by sheena
         //TimingData td = timeAListConstruction();
-        TimingData td = timeSLListGetLast();
+        //TimingData td = timeSLListGetLast();
+        TimingData td = timeLinkedListGetLast();
         // Modify this line to make the chart title make sense
         //String title = "Naive Recursive Fibonacci";
-        String title = "Time SList Get Last";
+        String title = "Time Linked List Get Last";
 
         // Convert "times" (in seconds) and "opCounts" to nanoseconds / op
         List<Double> timesUsPerOp = new ArrayList<>();
