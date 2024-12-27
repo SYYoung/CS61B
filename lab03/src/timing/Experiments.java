@@ -96,18 +96,42 @@ public class Experiments {
         List<Integer> opCounts = new ArrayList<>();
 
         // TODO: YOUR CODE HERE
+        int ops = 100;
+        int startVal = 1000;
+        int endVal = 128000;
+        SLList<Integer> myList;
+        for (int N = startVal; N <= endVal; N=N*2) {
+            System.out.print("N value = ");
+            System.out.println(N);
+            Ns.add(N);
+            opCounts.add(ops);
+            // 1. Build a list with N items in SList
+            myList = new SLList<Integer>();
+            int i = 0;
+            while (i < N) {
+                myList.addLast(i);
+                i++;
+            }
+            // 2. now measure time to getLast for ops times
+            Stopwatch sw = new Stopwatch();
+            for (int j = 0; j < ops; j++) {
+                int val = myList.getLast();
+            }
+            times.add(sw.elapsedTime());
+        }
 
-        return null;
-
+        return new TimingData(Ns, times, opCounts);
     }
 
     public static void main(String[] args) {
         // TODO: Modify the following line to change the experiment you're running
         //TimingData td = exampleFibonacciExperiment();
         // modified by sheena
-        TimingData td = timeAListConstruction();
+        //TimingData td = timeAListConstruction();
+        TimingData td = timeSLListGetLast();
         // Modify this line to make the chart title make sense
-        String title = "Naive Recursive Fibonacci";
+        //String title = "Naive Recursive Fibonacci";
+        String title = "Time SList Get Last";
 
         // Convert "times" (in seconds) and "opCounts" to nanoseconds / op
         List<Double> timesUsPerOp = new ArrayList<>();
