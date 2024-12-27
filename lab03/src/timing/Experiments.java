@@ -60,8 +60,33 @@ public class Experiments {
         List<Integer> opCounts = new ArrayList<>();
 
         // TODO: YOUR CODE HERE
+        // modified by sheena
+        // We're computing each fibonacci number 100 times to get a more stable number
+        int ops = 100;
+        int startVal = 1000;
+        int endVal = 128000;
+        AList<Integer> myList;
+        for (int N = startVal; N <= endVal; N=N*2) {
+            System.out.print("N value = ");
+            System.out.println(N);
+            Ns.add(N);
+            //modified by sheena
+            //opCounts.add(ops);
+            opCounts.add(ops * N);
+            Stopwatch sw = new Stopwatch();
+            // create a new AList for each value of N
+            for (int j = 0; j < ops; j++) {
+                myList = new AList<Integer>();
+                int i = 0;
+                while (i < N) {
+                    myList.addLast(i);
+                    i++;
+                }
+            }
+            times.add(sw.elapsedTime());
+        }
 
-        return null;
+        return new TimingData(Ns, times, opCounts);
     }
 
 
@@ -78,7 +103,9 @@ public class Experiments {
 
     public static void main(String[] args) {
         // TODO: Modify the following line to change the experiment you're running
-        TimingData td = exampleFibonacciExperiment();
+        //TimingData td = exampleFibonacciExperiment();
+        // modified by sheena
+        TimingData td = timeAListConstruction();
         // Modify this line to make the chart title make sense
         String title = "Naive Recursive Fibonacci";
 
