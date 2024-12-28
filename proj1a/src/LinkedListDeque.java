@@ -1,5 +1,6 @@
 import edu.princeton.cs.algs4.In;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LinkedListDeque<T> implements Deque<T> {
@@ -78,17 +79,26 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     @Override
     public List<T> toList() {
-        return List.of();
+        List<T> returnList = new ArrayList<>();
+        IntNode leader = sentinel;
+        IntNode first = sentinel.next;
+        if (isEmpty())
+            return null;
+        for (IntNode current=first; current != leader; current = current.next) {
+            T item = current.item;
+            returnList.addLast(item);
+        }
+        return returnList;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return (size == 0);
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
@@ -117,6 +127,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         lld.addFirst(1);
         lld.addLast(5);
         lld.addLast(7);
+        lld.toList();
     }
 
 }
