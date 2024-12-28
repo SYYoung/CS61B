@@ -27,6 +27,24 @@ public class LinkedListDeque<T> implements Deque<T> {
         IntNode node = new IntNode();
         node.item = x;
         // update the new node: prev and next
+        IntNode leader = sentinel;
+        IntNode first = leader.next;
+        // update the node
+        node.prev = leader;
+        node.next = first;
+        // update the previous first node
+        first.prev = node;
+        // update leader node
+        leader.next = node;
+
+        size++;
+    }
+
+    public void addFirstOld(T x) {
+        //create a new node
+        IntNode node = new IntNode();
+        node.item = x;
+        // update the new node: prev and next
         IntNode first = sentinel;
         node.prev = first;
         node.next = first.next;
@@ -95,10 +113,10 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     public static void main(String[] args) {
         Deque<Integer> lld = new LinkedListDeque<>();
-        //lld.addFirst(3);
-        //lld.addFirst(9);
-        lld.addLast(3);
-        lld.addLast(9);
+        lld.addFirst(3);
+        lld.addFirst(1);
+        lld.addLast(5);
+        lld.addLast(7);
     }
 
 }
