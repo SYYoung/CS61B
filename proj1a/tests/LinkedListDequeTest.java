@@ -154,5 +154,30 @@ public class LinkedListDequeTest {
         assertWithMessage("expected: index 2 = 7").that(lld1.getRecursive(2)).isEqualTo(7);
     }
 
+    @Test
+    /* This test performs isEmpty. */
+    public void removeFirstTest() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+
+        /* 1. test if the queue is empty. it should return null for any index */
+        assertWithMessage("expected to return null since the queue is empty").that(lld1.removeFirst()).isNull();
+
+        /* when the queue has only one element. it will return the first. if remove first again, it should
+        return null */
+        lld1.addLast(5);
+        assertWithMessage("expected to return element: 5").that(lld1.removeFirst()).isEqualTo(5);
+        assertWithMessage("the queue is empty now").that(lld1.removeFirst()).isNull();
+
+        /* add more elements, test out of bound and normal case */
+        lld1.addFirst(1);
+        lld1.addLast(5);
+        lld1.addLast(7);
+        /* test if the index 0 = 1, index 1 = 5, index 2 = 7 */
+        assertWithMessage("expected: remove first element = 1").that(lld1.removeFirst()).isEqualTo(1);
+        assertWithMessage("expected: remove again first element = 5").that(lld1.removeFirst()).isEqualTo(5);
+        assertWithMessage("expected: remove again first element = 7").that(lld1.removeFirst()).isEqualTo(7);
+        /* now the queue is empty. if removeFirst again, it should return null */
+        assertWithMessage("the queue is empty now").that(lld1.removeFirst()).isNull();
+    }
 
 }
