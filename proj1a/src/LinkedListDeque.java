@@ -124,9 +124,24 @@ public class LinkedListDeque<T> implements Deque<T> {
         }
     }
 
+    public T getRecursive(IntNode curNode, int index) {
+        /* base case : index = 0 */
+        if (index == 0)
+            return curNode.item;
+        else
+            return getRecursive(curNode.next, index - 1);
+    }
+
     @Override
     public T getRecursive(int index) {
-        return null;
+        /* check if the queue is empty, out of bound or negative. if yes, return null */
+        if (isEmpty() || (index >= size) || (index < 0))
+            return null;
+        else {
+            IntNode curNode = sentinel.next;
+            return getRecursive(curNode, index);
+        }
+
     }
 
     public static void main(String[] args) {

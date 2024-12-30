@@ -135,23 +135,23 @@ public class LinkedListDequeTest {
         Deque<Integer> lld1 = new LinkedListDeque<>();
 
         /* 1. test if the queue is empty. it should return null for any index */
-        assertWithMessage("expected to return null since the queue is empty").that(lld1.get(1)).isNull();
-        assertWithMessage("expected to return null since the queue is empty").that(lld1.get(0)).isNull();
+        assertWithMessage("expected to return null since the queue is empty").that(lld1.getRecursive(1)).isNull();
+        assertWithMessage("expected to return null since the queue is empty").that(lld1.getRecursive(0)).isNull();
 
         /* when the queue is not empty but the index is out of bound. it should return null */
         lld1.addLast(5);
-        assertWithMessage("expected to return null since the index is out of bound").that(lld1.get(1)).isNull();
+        assertWithMessage("expected to return null since the index is out of bound").that(lld1.getRecursive(1)).isNull();
         /* the index is correct. it should return 5 */
-        assertWithMessage("expected to return element 5").that(lld1.get(0)).isEqualTo(5);
+        assertWithMessage("expected to return element 5").that(lld1.getRecursive(0)).isEqualTo(5);
         /* the queue is not empty. however, the index is negative. should return null */
-        assertWithMessage("expected to return null since the index is negative").that(lld1.get(-1)).isNull();
+        assertWithMessage("expected to return null since the index is negative").that(lld1.getRecursive(-1)).isNull();
         /* add more elements, test out of bound and normal case */
         lld1.addFirst(1);
         lld1.addLast(7);
         /* test if the index 0 = 1, index 1 = 5, index 2 = 7 */
-        assertWithMessage("expected: index 0 = 1").that(lld1.get(0)).isEqualTo(1);
-        assertWithMessage("expected: index 1 = 5").that(lld1.get(1)).isEqualTo(5);
-        assertWithMessage("expected: index 2 = 7").that(lld1.get(2)).isEqualTo(7);
+        assertWithMessage("expected: index 0 = 1").that(lld1.getRecursive(0)).isEqualTo(1);
+        assertWithMessage("expected: index 1 = 5").that(lld1.getRecursive(1)).isEqualTo(5);
+        assertWithMessage("expected: index 2 = 7").that(lld1.getRecursive(2)).isEqualTo(7);
     }
 
 
