@@ -71,4 +71,88 @@ public class LinkedListDequeTest {
      }
 
      //Below, you'll write your own tests for LinkedListDeque.
+    @Test
+    /* This test performs isEmpty. */
+    public void isEmptyTestTrue() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+
+        /* 1. test when there is no element in the queue, isEmpty should return true. otherwise, return false */
+        assertWithMessage("expected to return true").that(lld1.isEmpty()).isTrue();
+
+        /* when there is one element in the queue, isEmpty() should return false */
+        lld1.addLast(5);
+        assertWithMessage("Expected to return false").that(lld1.isEmpty()).isFalse();
+    }
+
+    @Test
+    /* This test performs isEmpty. */
+    public void testSizeAndIsEmpty() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+
+        /* 1. test when there is no element in the queue, isEmpty should return true.
+        and size should be 0.*/
+        assertWithMessage("expected to return true").that(lld1.isEmpty()).isTrue();
+        assertWithMessage("Expected size is 0").that(lld1.size()).isEqualTo(0);
+
+        /* 2. when there is one element in the queue, isEmpty() should return false */
+        lld1.addLast(5);
+        assertWithMessage("Expected to return false").that(lld1.isEmpty()).isFalse();
+        assertWithMessage("Expected size is 1").that(lld1.size()).isEqualTo(1);
+
+        lld1.addFirst(3);
+        assertWithMessage("Expected to return false").that(lld1.isEmpty()).isFalse();
+        assertWithMessage("Expected size is 2").that(lld1.size()).isEqualTo(2);
+    }
+
+    @Test
+    /* This test performs isEmpty. */
+    public void getTest() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+
+        /* 1. test if the queue is empty. it should return null for any index */
+        assertWithMessage("expected to return null since the queue is empty").that(lld1.get(1)).isNull();
+        assertWithMessage("expected to return null since the queue is empty").that(lld1.get(0)).isNull();
+
+        /* when the queue is not empty but the index is out of bound. it should return null */
+        lld1.addLast(5);
+        assertWithMessage("expected to return null since the index is out of bound").that(lld1.get(1)).isNull();
+        /* the index is correct. it should return 5 */
+        assertWithMessage("expected to return element 5").that(lld1.get(0)).isEqualTo(5);
+        /* the queue is not empty. however, the index is negative. should return null */
+        assertWithMessage("expected to return null since the index is negative").that(lld1.get(-1)).isNull();
+        /* add more elements, test out of bound and normal case */
+        lld1.addFirst(1);
+        lld1.addLast(7);
+        /* test if the index 0 = 1, index 1 = 5, index 2 = 7 */
+        assertWithMessage("expected: index 0 = 1").that(lld1.get(0)).isEqualTo(1);
+        assertWithMessage("expected: index 1 = 5").that(lld1.get(1)).isEqualTo(5);
+        assertWithMessage("expected: index 2 = 7").that(lld1.get(2)).isEqualTo(7);
+    }
+
+    @Test
+    /* This test performs isEmpty. */
+    public void getRecursiveTest() {
+        Deque<Integer> lld1 = new LinkedListDeque<>();
+
+        /* 1. test if the queue is empty. it should return null for any index */
+        assertWithMessage("expected to return null since the queue is empty").that(lld1.get(1)).isNull();
+        assertWithMessage("expected to return null since the queue is empty").that(lld1.get(0)).isNull();
+
+        /* when the queue is not empty but the index is out of bound. it should return null */
+        lld1.addLast(5);
+        assertWithMessage("expected to return null since the index is out of bound").that(lld1.get(1)).isNull();
+        /* the index is correct. it should return 5 */
+        assertWithMessage("expected to return element 5").that(lld1.get(0)).isEqualTo(5);
+        /* the queue is not empty. however, the index is negative. should return null */
+        assertWithMessage("expected to return null since the index is negative").that(lld1.get(-1)).isNull();
+        /* add more elements, test out of bound and normal case */
+        lld1.addFirst(1);
+        lld1.addLast(7);
+        /* test if the index 0 = 1, index 1 = 5, index 2 = 7 */
+        assertWithMessage("expected: index 0 = 1").that(lld1.get(0)).isEqualTo(1);
+        assertWithMessage("expected: index 1 = 5").that(lld1.get(1)).isEqualTo(5);
+        assertWithMessage("expected: index 2 = 7").that(lld1.get(2)).isEqualTo(7);
+    }
+
+
 }

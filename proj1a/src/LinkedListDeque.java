@@ -113,7 +113,15 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     @Override
     public T get(int index) {
-        return null;
+        /* check if the queue is empty, out of bound or negative. if yes, return null */
+        if (isEmpty() || (index >= size) || (index < 0))
+            return null;
+        else {
+            IntNode curNode = sentinel.next;
+            for (int i=0; i < index; i++)
+                curNode = curNode.next;
+            return curNode.item;
+        }
     }
 
     @Override
