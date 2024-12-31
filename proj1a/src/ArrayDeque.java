@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArrayDeque<T> implements Deque<T> {
@@ -57,7 +58,12 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public List<T> toList() {
-        return List.of();
+        List<T> returnList = new ArrayList<>();
+
+        for (int i=0; i<size; i++) {
+            returnList.add(items[(nextFirst + 1 + i) % items.length]);
+        }
+        return returnList;
     }
 
     @Override
