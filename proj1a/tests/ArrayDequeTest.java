@@ -160,4 +160,50 @@ public class ArrayDequeTest {
         assertWithMessage("expected: r").that(ad.get(0)).isEqualTo("r");
 
     }
+
+    @Test
+    public void removeFirstAndremoveLastTest() {
+        ArrayDeque<String> ad = new ArrayDeque<>();
+        /* test : if the queue is empty, or if the index is out of bound, or index is negative,
+        null should be returned */
+        assertWithMessage("expected: null").that(ad.removeFirst()).isNull();
+        assertWithMessage("expected: null").that(ad.removeLast()).isNull();
+
+        ad.addLast("a");
+        ad.addLast("b");
+        ad.addFirst("c");
+        ad.addLast("d");
+        ad.addLast("e");
+        ad.addFirst("f");
+        ad.addLast("g");
+        ad.addLast("h");
+        /* test the list for negative index and out of bound index, should return null */
+        assertWithMessage("expected: f").that(ad.removeFirst()).isEqualTo("f");
+        assertWithMessage("expected: h").that(ad.removeLast()).isEqualTo("h");
+        ad.addFirst("f");
+        ad.addLast("h");
+
+        /* this will cause resize */
+        ad.addLast("Z");
+
+        ad.addLast("w");
+        ad.addLast("x");
+        ad.addLast("y");
+        ad.addFirst("m");
+        ad.addFirst("n");
+        ad.addFirst("o");
+        ad.addFirst("p");
+        /* test again */
+        assertWithMessage("expected: p").that(ad.removeFirst()).isEqualTo("p");
+        assertWithMessage("expected: y").that(ad.removeLast()).isEqualTo("y");
+        assertWithMessage("expected: o").that(ad.removeFirst()).isEqualTo("o");
+        assertWithMessage("expected: x").that(ad.removeLast()).isEqualTo("x");
+
+
+        /* should resize again */
+        ad.addFirst("r");
+        /* test again, after addFirst */
+        assertWithMessage("expected: r").that(ad.removeFirst()).isEqualTo("r");
+        assertWithMessage("expected: w").that(ad.removeLast()).isEqualTo("w");
+    }
 }

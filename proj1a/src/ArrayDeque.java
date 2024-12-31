@@ -78,12 +78,30 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public T removeFirst() {
-        return null;
+        if (isEmpty())
+            return null;
+        int firstIndex = (nextFirst + 1 + items.length) % items.length;
+        T firstItem = items[firstIndex];
+        /* update the internal variables */
+        items[firstIndex] = null;
+        nextFirst = firstIndex;
+        size--;
+
+        return firstItem;
     }
 
     @Override
     public T removeLast() {
-        return null;
+        if (isEmpty())
+            return null;
+        int lastIndex = (nextLast - 1 + items.length) % items.length;
+        T lastItem = items[lastIndex];
+        /* update internal variables */
+        items[lastIndex] = null;
+        nextLast = lastIndex;
+        size--;
+
+        return lastItem;
     }
 
     @Override
