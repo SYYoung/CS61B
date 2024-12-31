@@ -221,7 +221,8 @@ public class ArrayDequeTest {
             ad.removeFirst();
             ad.removeLast();
         }
-        ad.resizeDown();
+        //ad.resizeDown();
+
         /* addFirst() 3 more times, addLast() 3 more times */
         for (int i=1; i<=3; i++) {
             ad.addFirst(100+i);

@@ -6,8 +6,9 @@ public class ArrayDeque<T> implements Deque<T> {
     private int nextFirst;
     private int nextLast;
     private T[] items;
-    private int RFACTOR = 2;
-    private int DFACTOR = 2;
+    private final int RFACTOR = 2;
+    private final int DFACTOR = 2;
+    private final float USAGE = 0.25F;
 
     public ArrayDeque() {
         items = (T []) new Object[8];
@@ -24,7 +25,7 @@ public class ArrayDeque<T> implements Deque<T> {
     }
 
     private boolean isQueueTooSpare() {
-        return (size < items.length / 4);
+        return (size < items.length * USAGE);
     }
 
     private void resizeUp(int capacity) {
@@ -101,6 +102,9 @@ public class ArrayDeque<T> implements Deque<T> {
     public T removeFirst() {
         if (isEmpty())
             return null;
+        /* if the queue is too sparse, scale down first */
+        if (isQueueTooSpare())
+            resizeDown();
         int firstIndex = (nextFirst + 1 + items.length) % items.length;
         T firstItem = items[firstIndex];
         /* update the internal variables */
@@ -115,6 +119,10 @@ public class ArrayDeque<T> implements Deque<T> {
     public T removeLast() {
         if (isEmpty())
             return null;
+        /* check if the queue is too sparse, scale down first */
+        if (isQueueTooSpare())
+            resizeDown();
+
         int lastIndex = (nextLast - 1 + items.length) % items.length;
         T lastItem = items[lastIndex];
         /* update internal variables */
