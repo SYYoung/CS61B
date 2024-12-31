@@ -7,6 +7,7 @@ public class ArrayDeque<T> implements Deque<T> {
     private int nextLast;
     private T[] items;
     private int RFACTOR = 2;
+    private int DFACTOR = 2;
 
     public ArrayDeque() {
         items = (T []) new Object[8];
@@ -22,7 +23,11 @@ public class ArrayDeque<T> implements Deque<T> {
        return (size == items.length);
     }
 
-    private void resize(int capacity) {
+    private boolean isQueueTooSpare() {
+        return (size < items.length / 4);
+    }
+
+    private void resizeUp(int capacity) {
         T[] a = (T []) new Object[items.length * 2];
         /* the old array will copy to the new array, starting from index: original length /2,
         then copy the whole array. the last index should be: original_length/2 + original_length - 1
@@ -41,7 +46,7 @@ public class ArrayDeque<T> implements Deque<T> {
     @Override
     public void addFirst(T x) {
         if (isQueueFull())
-           resize(size * RFACTOR);
+           resizeUp(size * RFACTOR);
         items[nextFirst] = x;
         nextFirst = (nextFirst - 1 + items.length) % items.length;
         size++;
@@ -50,7 +55,7 @@ public class ArrayDeque<T> implements Deque<T> {
     @Override
     public void addLast(T x) {
         if (isQueueFull())
-            resize(size * RFACTOR);
+            resizeUp(size * RFACTOR);
         items[nextLast] = x;
         nextLast = (nextLast + 1) % items.length;
         size++;
@@ -74,6 +79,22 @@ public class ArrayDeque<T> implements Deque<T> {
     @Override
     public int size() {
         return size;
+    }
+
+    public void resizeDown() {
+        T[] a = (T []) new Object[items.length / DFACTOR];
+        /* the old array will copy to the new array, starting from index: original length /2,
+        then copy the whole array. the last index should be: original_length/2 + original_length - 1
+         */
+        int new_start = 0;
+        int old_start = nextFirst + 1;
+        for (int i=0; i <size; i++) {
+            a[new_start + i] = items[(old_start + i) % items.length];
+        }
+        items = a;
+        /* update nextFirst, nextLast and size */
+        nextFirst = (new_start - 1 + a.length) % a.length;
+        nextLast = size;
     }
 
     @Override

@@ -206,4 +206,31 @@ public class ArrayDequeTest {
         assertWithMessage("expected: r").that(ad.removeFirst()).isEqualTo("r");
         assertWithMessage("expected: w").that(ad.removeLast()).isEqualTo("w");
     }
+
+    @Test
+    public void resizeDownTest() {
+        ArrayDeque<Integer> ad = new ArrayDeque<>();
+
+        /* add 30 items in the front, and 30 items in the back */
+        for (int i=1; i<=30; i++)
+            ad.addFirst(i);
+        for (int i=31; i<=60; i++)
+            ad.addLast(i);
+        /* now delete 25 first and 25 last */
+        for (int i=1; i<=25; i++) {
+            ad.removeFirst();
+            ad.removeLast();
+        }
+        ad.resizeDown();
+        /* addFirst() 3 more times, addLast() 3 more times */
+        for (int i=1; i<=3; i++) {
+            ad.addFirst(100+i);
+            ad.addLast(200+i);
+        }
+        /* addFirst() more and addLast() so that it will resize up again */
+        for (int i=1; i<=12; i++) {
+            ad.addFirst(300+i);
+            ad.addLast(400+i);
+        }
+    }
 }
