@@ -88,7 +88,9 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public T get(int index) {
-        return null;
+        if ((index < 0) || (index > items.length))
+            return null;
+        return (items[(nextFirst + 1 + index) % items.length]);
     }
 
     @Override
