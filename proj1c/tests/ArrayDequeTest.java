@@ -246,6 +246,8 @@ public class ArrayDequeTest {
         for (String s : ad) {
             System.out.println(s);
         }
+        /* also a test of containsExactly */
+        assertThat(ad).containsExactly("front", "middle", "back");
 
     }
 }
