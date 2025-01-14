@@ -235,4 +235,17 @@ public class ArrayDequeTest {
             ad.addLast(400+i);
         }
     }
+
+    @Test
+    public void iteratorTest() {
+        ArrayDeque<String> ad = new ArrayDeque<>();
+
+        ad.addLast("front");
+        ad.addLast("middle");
+        ad.addLast("back");
+        for (String s : ad) {
+            System.out.println(s);
+        }
+
+    }
 }
