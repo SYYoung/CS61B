@@ -182,6 +182,31 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof LinkedListDeque oas) {
+            if (oas.size != this.size)
+                return false;
+
+            /* since both of them are same type and same size, we can
+            go through each item */
+            IntNode curNode1 = this.sentinel.next;
+            IntNode curNode2 = oas.sentinel.next;
+            for (int i = 0; i < this.size; i++) {
+                if (curNode1.item != curNode2.item)
+                    return false;
+                else {
+                    curNode1 = curNode1.next;
+                    curNode2 = curNode2.next;
+                }
+            }
+            return true;
+        }
+        /* if the other object is not ArrayQueue, return false */
+        return false;
+
+    }
+
     public static void main(String[] args) {
         Deque<Integer> lld = new LinkedListDeque<>();
         lld.addFirst(3);
