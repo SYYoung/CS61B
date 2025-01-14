@@ -12,7 +12,7 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new LinkedListIterator();
     }
 
     public class IntNode {
@@ -191,4 +191,24 @@ public class LinkedListDeque<T> implements Deque<T> {
         lld.toList();
     }
 
+    /* implement the iterator */
+    private class LinkedListIterator implements Iterator<T> {
+        IntNode currNode;
+
+        public LinkedListIterator() {
+            currNode = sentinel.next;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return (currNode != sentinel);
+        }
+
+        @Override
+        public T next() {
+            T curItem = currNode.item;
+            currNode = currNode.next;
+            return curItem;
+        }
+    }
 }
