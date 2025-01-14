@@ -148,6 +148,23 @@ public class ArrayDeque<T> implements Deque<T> {
         return get(index);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof ArrayDeque oas) {
+            if (oas.size != this.size)
+                return false;
+
+            for (int i = 0; i < this.size; i++) {
+                if (this.get(i) != oas.get(i))
+                    return false;
+            }
+
+            return true;
+        }
+        /* if the other object is not ArrayQueue, return false */
+        return false;
+    }
+
     public static void main(String[] args) {
         Deque<Integer> ad = new ArrayDeque<>();
     }

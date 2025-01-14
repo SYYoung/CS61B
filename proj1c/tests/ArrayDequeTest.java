@@ -248,6 +248,29 @@ public class ArrayDequeTest {
         }
         /* also a test of containsExactly */
         assertThat(ad).containsExactly("front", "middle", "back");
+    }
 
+    @Test
+    public void equalDequeTest() {
+        ArrayDeque<String> ad1 = new ArrayDeque<>();
+        ArrayDeque<String> ad2 = new ArrayDeque<>();
+        ArrayDeque<String> ad3 = new ArrayDeque<>();
+
+        ad1.addLast("front");
+        ad1.addLast("middle");
+        ad1.addLast("back");
+
+        ad2.addLast("front");
+        ad2.addLast("middle");
+        ad2.addLast("back");
+
+        ad3.addLast("front");
+        ad3.addLast("middle");
+        ad3.addLast("back1");
+        //ad3.addLast("one more");
+
+        //assertThat(ad1).isEqualTo(ad2);
+        assertThat(ad1).isEqualTo(ad2);
+        assertThat(ad1).isNotEqualTo(ad3);
     }
 }
