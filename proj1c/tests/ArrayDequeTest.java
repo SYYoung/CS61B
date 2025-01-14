@@ -273,4 +273,15 @@ public class ArrayDequeTest {
         assertThat(ad1).isEqualTo(ad2);
         assertThat(ad1).isNotEqualTo(ad3);
     }
+
+    @Test
+    public void toStringTest() {
+        ArrayDeque<String> ad1 = new ArrayDeque<>();
+        ad1.addLast("front");
+        ad1.addLast("middle");
+        ad1.addLast("back");
+
+        /* test the list */
+        System.out.println(ad1);
+    }
 }

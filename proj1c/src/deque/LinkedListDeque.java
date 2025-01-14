@@ -207,6 +207,12 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     }
 
+    @Override
+    public String toString() {
+        List<T> returnList = toList();
+        return returnList.toString();
+    }
+
     public static void main(String[] args) {
         Deque<Integer> lld = new LinkedListDeque<>();
         lld.addFirst(3);

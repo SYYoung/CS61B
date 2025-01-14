@@ -252,4 +252,15 @@ public class LinkedListDequeTest {
         assertThat(ad1).isEqualTo(ad2);
         assertThat(ad1).isNotEqualTo(ad3);
     }
+
+    @Test
+    public void toStringTest() {
+        LinkedListDeque<String> ad1 = new LinkedListDeque<>();
+        ad1.addLast("front");
+        ad1.addLast("middle");
+        ad1.addLast("back");
+
+        /* test the list */
+        System.out.println(ad1);
+    }
 }

@@ -165,6 +165,12 @@ public class ArrayDeque<T> implements Deque<T> {
         return false;
     }
 
+    @Override
+    public String toString() {
+        List<T> returnList = toList();
+        return returnList.toString();
+    }
+
     public static void main(String[] args) {
         Deque<Integer> ad = new ArrayDeque<>();
     }
