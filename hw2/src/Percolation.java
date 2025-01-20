@@ -43,6 +43,7 @@ public class Percolation {
         grid[row][col] = OPEN;
         connect2Adj(row, col);
         connect2VirtualTop(row, col);
+        connect2VirtualBottom(row, col);
         totalOpen++;
     }
 
@@ -66,7 +67,7 @@ public class Percolation {
 
     public boolean percolates() {
         // TODO: Fill in this method.
-        return false;
+        return (wuf.connected(virtualTop, virtualBot));
     }
 
     // TODO: Add any useful helper methods (we highly recommend this!).
@@ -111,6 +112,13 @@ public class Percolation {
         wuf.union(rc21d(row, col), virtualTop);
     }
 
+    private void connect2VirtualBottom(int row, int col) {
+        if (row != dimension - 1)
+            return;
+        wuf.union(rc21d(row, col), virtualBot);
+    }
+
+
 
     public static void main(String[] args) {
         Percolation per = new Percolation(5);
@@ -134,5 +142,9 @@ public class Percolation {
         per.open(r1, c1);
         boolean fullOrNot = per.isFull(r1, c1); // should be full
         fullOrNot = per.isFull(3, 4);
+        r1 = 4; c1 = 4;
+        per.open(r1, c1);
+        fullOrNot = per.isFull(r1, c1);
+        boolean percolateOrNot = per.percolates();
     }
 }
