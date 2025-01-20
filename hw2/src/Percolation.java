@@ -38,6 +38,8 @@ public class Percolation {
         // TODO: Fill in this method.
         if (!isInputValid(row, col))
             throw new IndexOutOfBoundsException();
+        if (isOpen(row, col))
+            return;
         grid[row][col] = OPEN;
         connect2Adj(row, col);
         connect2VirtualTop(row, col);
