@@ -1,7 +1,6 @@
 package ngordnet.ngrams;
 
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * An object for mapping a year number (e.g. 1996) to numerical data. Provides
@@ -27,8 +26,9 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      * inclusive of both end points.
      */
     public TimeSeries(TimeSeries ts, int startYear, int endYear) {
-        super();
+        //super();
         // TODO: Fill in this constructor.
+        super(ts.subMap(startYear, endYear));
     }
 
     /**
@@ -36,7 +36,9 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      */
     public List<Integer> years() {
         // TODO: Fill in this method.
-        return null;
+        List<Integer> arr = new ArrayList<>();
+        arr.addAll(keySet());
+        return arr;
     }
 
     /**
@@ -45,7 +47,9 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      */
     public List<Double> data() {
         // TODO: Fill in this method.
-        return null;
+        List<Double> arr = new ArrayList<>();
+        arr.addAll(values());
+        return arr;
     }
 
     /**
@@ -59,7 +63,21 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      */
     public TimeSeries plus(TimeSeries ts) {
         // TODO: Fill in this method.
-        return null;
+        // 1. get the key of this TimeSeries and the key of ts
+        // 2. combine the set
+        // 3. for each key, get the values from both TimeSeries.
+        // 4. add them up, then put this new entry in the new TimeSeries
+        TimeSeries combineTS = new TimeSeries();
+        Set<Integer> unionKey = new HashSet<>(keySet());
+        unionKey.addAll(ts.keySet());
+        for (Integer k : unionKey) {
+            double v1 = 0, v2 = 0;
+            if (containsKey(k)) {v1 = get(k);}
+            if (ts.containsKey(k)) {v2 = ts.get(k);}
+            // add this entry into new TimeSeries
+            combineTS.put(k, v1+v2);
+        }
+        return combineTS;
     }
 
     /**
@@ -73,7 +91,17 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      */
     public TimeSeries dividedBy(TimeSeries ts) {
         // TODO: Fill in this method.
-        return null;
+        TimeSeries divideTS = new TimeSeries();
+        for (Integer k : keySet()) {
+            double v1 = 0, v2 = 0;
+            v1 = get(k);
+            if (!ts.containsKey(k))
+                throw new IllegalArgumentException();
+            v2 = ts.get(k);
+            // add this entry into new TimeSeries
+            divideTS.put(k, v2/v1);
+        }
+        return divideTS;
     }
 
     // TODO: Add any private helper methods.
