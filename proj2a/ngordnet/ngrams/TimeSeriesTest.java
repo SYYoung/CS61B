@@ -2,6 +2,7 @@ package ngordnet.ngrams;
 
 import org.junit.jupiter.api.Test;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,5 +41,8 @@ public class TimeSeriesTest {
         for (int i = 0; i < expectedTotal.size(); i += 1) {
             assertThat(totalPopulation.data().get(i)).isWithin(1E-10).of(expectedTotal.get(i));
         }
+
+        TimeSeries ts = new TimeSeries(totalPopulation, 1992, 1994);
+
     }
 } 

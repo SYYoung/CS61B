@@ -28,7 +28,7 @@ public class TimeSeries extends TreeMap<Integer, Double> {
     public TimeSeries(TimeSeries ts, int startYear, int endYear) {
         //super();
         // TODO: Fill in this constructor.
-        super(ts.subMap(startYear, endYear));
+        super(ts.subMap(startYear, true, endYear, true));
     }
 
     /**
