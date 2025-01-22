@@ -44,6 +44,8 @@ public class NGramMap {
         wordCountMap = new HashMap<>();
         in = new In(wordsFilename);
         while (in.hasNextLine()) {
+            if (in.isEmpty())
+                break;
             String word = in.readString();
             int year = in.readInt();
             double count = in.readDouble();
@@ -96,7 +98,7 @@ public class NGramMap {
     public TimeSeries totalCountHistory() {
         // TODO: Fill in this method.
         TimeSeries ts = new TimeSeries(totalCountTS, MIN_YEAR, MAX_YEAR);
-        return null;
+        return ts;
     }
 
     /**
