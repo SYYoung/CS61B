@@ -99,7 +99,7 @@ public class TimeSeries extends TreeMap<Integer, Double> {
                 throw new IllegalArgumentException();
             v2 = ts.get(k);
             // add this entry into new TimeSeries
-            divideTS.put(k, v2/v1);
+            divideTS.put(k, v1/v2);
         }
         return divideTS;
     }
