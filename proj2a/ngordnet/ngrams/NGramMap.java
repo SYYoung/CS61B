@@ -30,11 +30,14 @@ public class NGramMap {
         // 1. read countsFilename and build totalCountTS
         totalCountTS = new TimeSeries();
         In in = new In(countsFilename);
+        // countsFile is in csv format, therefore read the whole line at a time
+        String[] tmpArray;
+        String line;
         while (in.hasNextLine()) {
-            int year = in.readInt();
-            double total = in.readDouble();
-            int dummy1 = in.readInt();
-            int dummy2 = in.readInt();
+            line = in.readLine();
+            tmpArray = line.split(",");
+            int year = Integer.parseInt(tmpArray[0]);
+            double total = Double.parseDouble(tmpArray[1]);
             totalCountTS.put(year, total);
         }
         // 2. read wordsFilename and build wordCountMap
@@ -45,14 +48,15 @@ public class NGramMap {
             int year = in.readInt();
             double count = in.readDouble();
             int dummy = in.readInt();
+            TimeSeries ts;
             if (wordCountMap.containsKey(word)) {
-                TimeSeries ts = wordCountMap.get(word);
-                ts.put(year, count);
+                ts = wordCountMap.get(word);
             }
             else {
-                TimeSeries ts2 = new TimeSeries();
-                ts2.put(year, count);
+                ts = new TimeSeries();
             }
+            ts.put(year, count);
+            wordCountMap.put(word, ts);
         }
     }
 
