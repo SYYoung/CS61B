@@ -33,6 +33,8 @@ public class NGramMapTest {
                 (Arrays.asList(677820.0, 697645.0));
 
         TimeSeries request2006to2007 = ngm.countHistory("request", 2006, 2007);
+        // just testing
+        String tmp = request2006to2007.toString();
 
         assertThat(request2006to2007.years()).isEqualTo(expectedYears);
 
@@ -47,6 +49,9 @@ public class NGramMapTest {
         NGramMap ngm = new NGramMap("./data/ngrams/top_14377_words.csv",
                 "./data/ngrams/total_counts.csv");
 
+        /*NGramMap ngm = new NGramMap("./data/ngrams/top_49887_words.csv",
+                "./data/ngrams/total_counts.csv");
+        */
         // returns the count of the number of occurrences of fish per year between 1850 and 1933.
         TimeSeries fishCount = ngm.countHistory("fish", 1850, 1933);
         assertThat(fishCount.get(1865)).isWithin(1E-10).of(136497.0);
