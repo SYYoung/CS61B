@@ -68,6 +68,8 @@ public class TimeSeries extends TreeMap<Integer, Double> {
         // 3. for each key, get the values from both TimeSeries.
         // 4. add them up, then put this new entry in the new TimeSeries
         TimeSeries combineTS = new TimeSeries();
+        if (this.isEmpty() && ts.isEmpty())
+            return combineTS;
         Set<Integer> unionKey = new HashSet<>(keySet());
         unionKey.addAll(ts.keySet());
         for (Integer k : unionKey) {
