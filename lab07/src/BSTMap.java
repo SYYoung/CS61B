@@ -87,7 +87,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     @Override
     public Set keySet() {
         // no need to implement
-        throw new UnsupportedOperationException();
+        return setOfKey;
     }
 
 
