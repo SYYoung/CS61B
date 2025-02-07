@@ -148,13 +148,14 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         Collection<Node>[] oldBucket = buckets;
         buckets = newBucket;
         size = 0;
-        for (int i = 0; i < numBuckets; i++) {
+        int oldNumBuckets = numBuckets;
+        numBuckets = newTableSize;
+        for (int i = 0; i < oldNumBuckets; i++) {
             for (Node node : oldBucket[i]) {
                 putNewNode(node.key, node.value);
                 size++;
             }
         }
-        numBuckets = newTableSize;
         oldBucket = null;
     }
 
