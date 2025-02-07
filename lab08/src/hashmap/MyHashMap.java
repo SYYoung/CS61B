@@ -49,19 +49,20 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     /* Instance Variables */
     private Collection<Node>[] buckets;
     // You should probably define some more!
-    private final int initDefaultCap = 16;
-    private final double defaultLoadFactor = 0.75;
     private int size;
     private int numBuckets;
     private double loadFactor;
 
     /** Constructors */
     public MyHashMap() {
-        this(this.initDefaultCap, this.defaultLoadFactor);
+        int defaultCap = 16;
+        double defaultLoadFactor = 0.75;
+        this(defaultCap, defaultLoadFactor);
     }
 
     public MyHashMap(int initialCapacity) {
-        this(initialCapacity, this.defaultLoadFactor);
+        double defaultLoadFactor = 0.75;
+        this(initialCapacity, defaultLoadFactor);
     }
 
     /**
