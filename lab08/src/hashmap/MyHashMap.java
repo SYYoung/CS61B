@@ -127,33 +127,48 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         return table;
     }
 
-    // TODO: Implement the methods of the Map61B Interface below
-    // Your code won't compile until you do so!
-    @Override
-    public void put(K key, V value) {
-        Node node = new Node(key, value);
-        int hashVal = node.key.hashCode();
-        int whichBucket = Math.floorMod(hashVal, numBuckets);
-        buckets[whichBucket].add(node);
-        size++;
-    }
-
-    @Override
-    public V get(K key) {
+    private Node getNode(K key) {
         int hashVal = key.hashCode();
         int whichBucket = Math.floorMod(hashVal, numBuckets);
         for (Node node : buckets[whichBucket]) {
             if (node.key.equals(key)) {
-                return node.value;
+                return node;
             }
         }
         return null;
     }
 
+    // TODO: Implement the methods of the Map61B Interface below
+    // Your code won't compile until you do so!
+    @Override
+    public void put(K key, V value) {
+        // check such key exists or not
+        Node node = getNode(key);
+        if (node != null) {
+            node.value = value;
+        }
+        else {
+            node = new Node(key, value);
+            int hashVal = node.key.hashCode();
+            int whichBucket = Math.floorMod(hashVal, numBuckets);
+            buckets[whichBucket].add(node);
+            size++;
+        }
+    }
+
+    @Override
+    public V get(K key) {
+        Node node = getNode(key);
+        if (node == null)
+            return null;
+        else
+            return node.value;
+    }
+
     @Override
     public boolean containsKey(K key) {
-        V val = get(key);
-        return (val != null);
+        Node node = getNode(key);
+        return (node != null);
     }
 
     @Override
@@ -164,7 +179,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     @Override
     public void clear() {
         for (int i = 0; i < numBuckets; i++) {
-            buckets[i] = null;
+            buckets[i].clear();
         }
         size = 0;
     }
