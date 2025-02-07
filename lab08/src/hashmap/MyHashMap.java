@@ -138,6 +138,33 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         return null;
     }
 
+    private boolean exceedLoadFactor() {
+       return  (((double) size / numBuckets) > loadFactor);
+    }
+
+    private void resizeTable() {
+        int newTableSize = numBuckets * 2;
+        Collection<Node>[] newBucket = createTable(newTableSize);
+        Collection<Node>[] oldBucket = buckets;
+        buckets = newBucket;
+        size = 0;
+        for (int i = 0; i < numBuckets; i++) {
+            for (Node node : oldBucket[i]) {
+                putNewNode(node.key, node.value);
+                size++;
+            }
+        }
+        numBuckets = newTableSize;
+        oldBucket = null;
+    }
+
+    private void putNewNode(K key, V value) {
+        Node node = new Node(key, value);
+        int hashVal = node.key.hashCode();
+        int whichBucket = Math.floorMod(hashVal, numBuckets);
+        buckets[whichBucket].add(node);
+    }
+
     // TODO: Implement the methods of the Map61B Interface below
     // Your code won't compile until you do so!
     @Override
@@ -148,6 +175,10 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
             node.value = value;
         }
         else {
+            // check if the table reaches the loadFactor. if yes, resize the table
+            // and copy current nodes to the new table
+            if (exceedLoadFactor())
+                resizeTable();
             node = new Node(key, value);
             int hashVal = node.key.hashCode();
             int whichBucket = Math.floorMod(hashVal, numBuckets);
