@@ -5,12 +5,16 @@ import ngordnet.browser.NgordnetQueryHandler;
 import ngordnet.ngrams.NGramMap;
 
 public class HyponymsHandler extends NgordnetQueryHandler {
+    private WordNet wn;
 
-    public HyponymsHandler(NGramMap ngm) {
-
+    public HyponymsHandler(WordNet wn) {
+        this.wn = wn;
     }
 
     public String handle(NgordnetQuery q) {
-        return "hello";
+        // it will invoke WordNet to return the list of hyponyms
+
+        return wn.doSomething();
+        //return "hello";
     }
 }
