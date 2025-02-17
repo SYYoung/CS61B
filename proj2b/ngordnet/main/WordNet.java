@@ -2,10 +2,14 @@ package ngordnet.main;
 
 import edu.princeton.cs.algs4.In;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 public class WordNet {
     // wrapper for a graph
+    private int INVALID_NODE_NUMBER = Integer.MAX_VALUE;
     private Graph graph;
 
     public WordNet(String sysnetFName, String hypoFName) {
@@ -23,9 +27,16 @@ public class WordNet {
     public List<String> getHyponym(String word) {
         // get the corresponding node number first
         int from = graph.getNodeNumber(word);
-        List<Integer> hypoList = graph.traverse(from);
-
-        return null;
+        if (from == INVALID_NODE_NUMBER)
+            return new LinkedList<>();
+        List<Integer> hypoNumList = graph.traverse(from);
+        List<String> hypoNameList = new LinkedList<>();
+        // for each node number, get the string back
+        for (int i : hypoNumList) {
+            hypoNameList.add(graph.getNodeName(i));
+        }
+        Collections.sort(hypoNameList);
+        return hypoNameList;
     }
 
     private void readSysnetFile(String sysnetFName) {
@@ -63,5 +74,9 @@ public class WordNet {
         String sysFName = "data/wordnet/synsets11.txt";
         String hypoFName = "data/wordnet/hyponyms11.txt";
         WordNet wn = new WordNet(sysFName, hypoFName);
+        // test simple case
+        String entry = "bbb";
+        List<String> resultName = wn.getHyponym(entry);
+        System.out.println(resultName);
     }
 }

@@ -41,10 +41,12 @@ public class Graph {
     }
 
     public int getNodeNumber(String nodeName) {
-        if (name.containsKey(nodeName)) {
-            return (name.get(nodeName));
-        } else
-            return Integer.MAX_VALUE;
+        return (name.getOrDefault(nodeName, Integer.MAX_VALUE));
+    }
+
+    public String getNodeName(int num) {
+        // given the node number, get the corresponding node name
+        return vertices.get(num);
     }
 
     public List<Integer> getNeighbor(int from) {
