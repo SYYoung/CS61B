@@ -10,8 +10,6 @@ public class HyponymsHandler extends NgordnetQueryHandler {
     private WordNet wn;
 
     public HyponymsHandler(WordNet wn) {
-        //String sysFName = "data/wordnet/synsets11.txt";
-        //String hypoFName = "data/wordnet/hyponyms11.txt";
         this.wn = wn;
     }
 
@@ -24,6 +22,5 @@ public class HyponymsHandler extends NgordnetQueryHandler {
             response.append(wn.getHyponym(w));
         }
         return response.toString();
-        //return wn.doSomething();
     }
 }
