@@ -2,6 +2,8 @@ package ngordnet.main;
 
 import edu.princeton.cs.algs4.In;
 
+import java.util.List;
+
 public class WordNet {
     // wrapper for a graph
     private Graph graph;
@@ -16,6 +18,14 @@ public class WordNet {
 
     public WordNet() {
         graph = new Graph();
+    }
+
+    public List<String> getHyponym(String word) {
+        // get the corresponding node number first
+        int from = graph.getNodeNumber(word);
+        List<Integer> hypoList = graph.traverse(from);
+
+        return null;
     }
 
     private void readSysnetFile(String sysnetFName) {

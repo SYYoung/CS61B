@@ -8,24 +8,25 @@ public class Graph {
     // connected to
     private HashMap<Integer, LinkedList<Integer>> gr;
     private HashMap<String, Integer> name;
-    private HashSet<Integer> vertices;
+    private HashMap<Integer, String> vertices;
 
     public Graph() {
         gr = new HashMap<>();
-        vertices = new HashSet<>();
+        vertices = new HashMap<>();
         name = new HashMap<>();
     }
 
     public void createNode(String nodeName, int node) {
         name.put(nodeName, node);
         createNode(node);
+        vertices.put(node, nodeName);
     }
 
     public void createNode(int node) {
-        if (!vertices.contains(node)) {
+        if (!vertices.containsKey(node)) {
             LinkedList<Integer> edge = new LinkedList<>();
             gr.put(node, edge);
-            vertices.add(node);
+            //vertices.put(node);
         }
     }
 
@@ -37,6 +38,13 @@ public class Graph {
 
     public List<Integer> getNodes() {
        return new ArrayList<Integer>(gr.keySet());
+    }
+
+    public int getNodeNumber(String nodeName) {
+        if (name.containsKey(nodeName)) {
+            return (name.get(nodeName));
+        } else
+            return Integer.MAX_VALUE;
     }
 
     public List<Integer> getNeighbor(int from) {
