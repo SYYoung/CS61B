@@ -10,16 +10,16 @@ public class Main {
         String countFile = "./data/ngrams/total_counts.csv";
 
         // use a smaller file for testing
-        //String synsetFile = "./data/wordnet/synsets11.txt";
-        //String hyponymFile = "./data/wordnet/hyponyms11.txt";
+        String synsetFile = "./data/wordnet/synsets11.txt";
+        String hyponymFile = "./data/wordnet/hyponyms11.txt";
 
-        String synsetFile = "./data/wordnet/synsets.txt";
-        String hyponymFile = "./data/wordnet/hyponyms.txt";
+        //String synsetFile = "./data/wordnet/synsets.txt";
+        //String hyponymFile = "./data/wordnet/hyponyms.txt";
 
 
         // comment out till 2nd part of proj2b
         //NGramMap ngm = new NGramMap(wordFile, countFile);
-        WordNet wn = new WordNet();
+        WordNet wn = new WordNet(synsetFile, hyponymFile);
 
         hns.startUp();
         // comment out till 2nd part of proj2b
