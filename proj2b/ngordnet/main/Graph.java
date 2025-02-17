@@ -54,6 +54,14 @@ public class Graph {
         }
         return decendant;
     }
+    public HashMap<String, Integer> printAllNodeName() {
+        HashMap<String, Integer> val;
+        if (!name.isEmpty())
+            val =  new HashMap<>(name);
+        else
+            val = new HashMap<>();
+        return val;
+    }
 
     // resizing
     public String youDoSomething() {
