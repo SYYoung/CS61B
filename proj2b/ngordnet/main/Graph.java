@@ -7,11 +7,18 @@ public class Graph {
     // the adj list can be implemented as hashmap, key is the source, value is the nodes which the source
     // connected to
     private HashMap<Integer, LinkedList<Integer>> gr;
+    private HashMap<String, Integer> name;
     private HashSet<Integer> vertices;
 
     public Graph() {
         gr = new HashMap<>();
         vertices = new HashSet<>();
+        name = new HashMap<>();
+    }
+
+    public void createNode(String nodeName, int node) {
+        name.put(nodeName, node);
+        createNode(node);
     }
 
     public void createNode(int node) {
@@ -56,7 +63,7 @@ public class Graph {
     public static void main(String[] args) {
         Graph g = new Graph();
         for (int i = 0; i <= 10; i++) {
-            g.createNode(i);
+            g.createNode(Integer.toString(i), i);
         }
         // create edge: from hyponyms11
         g.addEdge(0, 1);
@@ -68,13 +75,20 @@ public class Graph {
         g.addEdge(9, 10);
 
         List<Integer> list1 = g.getNodes();
+        if (!g.name.isEmpty())
+            System.out.print(g.name);
+        System.out.println();
+
         // test neighbors
         for (int i = 0 ; i <=10; i++) {
             list1 = g.getNeighbor(i);
+            System.out.print(i + ": ");
+            System.out.println(list1);
         }
         // test traverse
         for (int i = 0; i <= 10; i++) {
             list1 = g.traverse(i);
+            System.out.print(list1);
         }
     }
 }
