@@ -2,18 +2,17 @@ package ngordnet.main;
 
 import edu.princeton.cs.algs4.In;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class WordNet {
     // wrapper for a graph
     private int INVALID_NODE_NUMBER = Integer.MAX_VALUE;
     private Graph graph;
+    private HashMap<String, LinkedList<String>> wordChain;
 
     public WordNet(String sysnetFName, String hypoFName) {
         graph = new Graph();
+        wordChain = new HashMap<>();
         // build the graph -> add all the edges
         // 1. read syssets.txt first
         readSysnetFile(sysnetFName);
@@ -39,6 +38,16 @@ public class WordNet {
         return hypoNameList;
     }
 
+    private void updateWordChain(String entry) {
+        LinkedList<String> val;
+        String[] wordList = entry.split(" ");
+        for (String word: wordList) {
+            val = wordChain.getOrDefault(word, new LinkedList<>());
+            val.add(entry);
+            wordChain.put(word, val);
+        }
+    }
+
     private void readSysnetFile(String sysnetFName) {
         In in = new In(sysnetFName);
         String line;
@@ -48,6 +57,7 @@ public class WordNet {
             tmpArray = line.split(",");
             int nodeNumber = Integer.parseInt(tmpArray[0]);
             graph.createNode(tmpArray[1], nodeNumber);
+            updateWordChain(tmpArray[1]);
         }
     }
 
@@ -65,18 +75,26 @@ public class WordNet {
         }
     }
 
+    public void printWordChain() {
+        for (String word: wordChain.keySet()) {
+            System.out.print(word + ":   ");
+            System.out.println(wordChain.get(word));
+        }
+    }
+
     // graph helper function
     public String doSomething() {
         return graph.youDoSomething();
     }
 
     public static void main(String[] args) {
-        String sysFName = "data/wordnet/synsets11.txt";
-        String hypoFName = "data/wordnet/hyponyms11.txt";
+        String sysFName = "data/wordnet/synsets16.txt";
+        String hypoFName = "data/wordnet/hyponyms16.txt";
         WordNet wn = new WordNet(sysFName, hypoFName);
         // test simple case
         String entry = "bbb";
         List<String> resultName = wn.getHyponym(entry);
         System.out.println(resultName);
+        wn.printWordChain();
     }
 }
