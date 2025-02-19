@@ -43,6 +43,13 @@ public class WordNet {
         for (int i : hypoNumList) {
             hypoNameList.add(graph.getNodeName(i));
         }
+        // break down each individual word in the list
+        Set<String> wordSet = new HashSet<>();
+        for (String s : hypoNameList) {
+            String[] subS = s.split(" ");
+            wordSet.addAll(List.of(subS));
+        }
+        hypoNameList = new LinkedList<>(wordSet);
         Collections.sort(hypoNameList);
         return hypoNameList;
     }
