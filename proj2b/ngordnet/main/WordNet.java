@@ -108,7 +108,7 @@ public class WordNet {
         String hypoFName = "data/wordnet/hyponyms16.txt";
         WordNet wn = new WordNet(sysFName, hypoFName);
         // test simple case
-        String[] entry = {"change", "bbb"};
+        String[] entry = {"change", "bbb", "transition"};
         for (String s: entry){
             List<String> resultName = wn.getHyponym(s);
             System.out.println(resultName);
