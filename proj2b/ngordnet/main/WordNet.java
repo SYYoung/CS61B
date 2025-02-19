@@ -6,7 +6,6 @@ import java.util.*;
 
 public class WordNet {
     // wrapper for a graph
-    private int INVALID_NODE_NUMBER = Integer.MAX_VALUE;
     private Graph graph;
     private HashMap<String, LinkedList<String>> wordChain;
 
@@ -33,22 +32,18 @@ public class WordNet {
         List<Integer> fromList = new LinkedList<>();
         for (String w : relatedWordList)
             fromList.addAll(graph.getNodeNumber(w));
-        if (fromList.isEmpty())
-            return new LinkedList<>();
         List<Integer> hypoNumList = new LinkedList<>();
         for (int from: fromList)
             hypoNumList.addAll(graph.traverse(from));
         List<String> hypoNameList = new LinkedList<>();
+        Set<String> wordSet = new HashSet<>();
         // for each node number, get the string back
         for (int i : hypoNumList) {
-            hypoNameList.add(graph.getNodeName(i));
-        }
-        // break down each individual word in the list
-        Set<String> wordSet = new HashSet<>();
-        for (String s : hypoNameList) {
+            String s = graph.getNodeName(i);
             String[] subS = s.split(" ");
             wordSet.addAll(List.of(subS));
         }
+
         hypoNameList = new LinkedList<>(wordSet);
         Collections.sort(hypoNameList);
         return hypoNameList;
@@ -98,10 +93,6 @@ public class WordNet {
         }
     }
 
-    // graph helper function
-    public String doSomething() {
-        return graph.youDoSomething();
-    }
 
     public static void main(String[] args) {
         String sysFName = "data/wordnet/synsets16.txt";
