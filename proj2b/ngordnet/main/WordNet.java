@@ -25,10 +25,12 @@ public class WordNet {
 
     public List<String> getHyponym(String word) {
         // get the corresponding node number first
-        int from = graph.getNodeNumber(word);
-        if (from == INVALID_NODE_NUMBER)
+        List<Integer> fromList = graph.getNodeNumber(word);
+        if (fromList.isEmpty())
             return new LinkedList<>();
-        List<Integer> hypoNumList = graph.traverse(from);
+        List<Integer> hypoNumList = new LinkedList<>();
+        for (int from: fromList)
+            hypoNumList.addAll(graph.traverse(from));
         List<String> hypoNameList = new LinkedList<>();
         // for each node number, get the string back
         for (int i : hypoNumList) {
@@ -88,13 +90,15 @@ public class WordNet {
     }
 
     public static void main(String[] args) {
-        String sysFName = "data/wordnet/synsets16.txt";
-        String hypoFName = "data/wordnet/hyponyms16.txt";
+        String sysFName = "data/wordnet/synsets11.txt";
+        String hypoFName = "data/wordnet/hyponyms11.txt";
         WordNet wn = new WordNet(sysFName, hypoFName);
         // test simple case
-        String entry = "bbb";
-        List<String> resultName = wn.getHyponym(entry);
-        System.out.println(resultName);
+        String[] entry = {"change", "bbb"};
+        for (String s: entry){
+            List<String> resultName = wn.getHyponym(s);
+            System.out.println(resultName);
+        }
         wn.printWordChain();
     }
 }

@@ -6,8 +6,8 @@ public class Graph {
     // variables
     // the adj list can be implemented as hashmap, key is the source, value is the nodes which the source
     // connected to
-    private HashMap<Integer, LinkedList<Integer>> gr;
-    private HashMap<String, Integer> name;
+    private HashMap<Integer, Set<Integer>> gr;
+    private HashMap<String, Set<Integer>> name;
     private HashMap<Integer, String> vertices;
 
     public Graph() {
@@ -17,31 +17,35 @@ public class Graph {
     }
 
     public void createNode(String nodeName, int node) {
-        name.put(nodeName, node);
+        Set<Integer> nodeSet = name.getOrDefault(nodeName, new HashSet<Integer>());
+        nodeSet.add(node);
+        name.put(nodeName, nodeSet);
         createNode(node);
         vertices.put(node, nodeName);
     }
 
     public void createNode(int node) {
         if (!vertices.containsKey(node)) {
-            LinkedList<Integer> edge = new LinkedList<>();
+            Set<Integer> edge = new HashSet<>();
             gr.put(node, edge);
             //vertices.put(node);
         }
     }
 
     public void addEdge(int from, int to) {
-        LinkedList<Integer> edgeList = gr.get(from);
+        Set<Integer> edgeList = gr.get(from);
         edgeList.add(to);
         gr.put(from, edgeList);
     }
 
     public List<Integer> getNodes() {
-       return new ArrayList<Integer>(gr.keySet());
+        List<Integer> nodeList = new LinkedList(gr.keySet());
+        return nodeList;
     }
 
-    public int getNodeNumber(String nodeName) {
-        return (name.getOrDefault(nodeName, Integer.MAX_VALUE));
+    public List<Integer> getNodeNumber(String nodeName) {
+        List<Integer> nodeList = new LinkedList(name.getOrDefault(nodeName, new HashSet<>()));
+        return nodeList;
     }
 
     public String getNodeName(int num) {
@@ -64,12 +68,19 @@ public class Graph {
         }
         return decendant;
     }
-    public HashMap<String, Integer> printAllNodeName() {
-        HashMap<String, Integer> val;
+    public List<String> getAllNodeName() {
+        // get the values from the map vertices
+        List<String> val = new LinkedList<>();
+        if (!vertices.isEmpty()) {
+            val.addAll(vertices.values());
+        }
+        /* old code
         if (!name.isEmpty())
             val =  new HashMap<>(name);
         else
             val = new HashMap<>();
+
+         */
         return val;
     }
 
@@ -108,5 +119,12 @@ public class Graph {
             list1 = g.traverse(i);
             System.out.print(list1);
         }
+        System.out.println();
+
+        // test printAllNodeName
+        List<String> list2;
+        list2 = g.getAllNodeName();
+        for (String s : list2)
+            System.out.println(s);
     }
 }
