@@ -25,7 +25,14 @@ public class WordNet {
 
     public List<String> getHyponym(String word) {
         // get the corresponding node number first
-        List<Integer> fromList = graph.getNodeNumber(word);
+        //List<Integer> fromList = graph.getNodeNumber(word);
+        // from wordChain, get all related names associated with the input word
+        List<String> relatedWordList = wordChain.getOrDefault(word, new LinkedList<>());
+        if (relatedWordList.isEmpty())
+            return new LinkedList<>();
+        List<Integer> fromList = new LinkedList<>();
+        for (String w : relatedWordList)
+            fromList.addAll(graph.getNodeNumber(w));
         if (fromList.isEmpty())
             return new LinkedList<>();
         List<Integer> hypoNumList = new LinkedList<>();
@@ -90,8 +97,8 @@ public class WordNet {
     }
 
     public static void main(String[] args) {
-        String sysFName = "data/wordnet/synsets11.txt";
-        String hypoFName = "data/wordnet/hyponyms11.txt";
+        String sysFName = "data/wordnet/synsets16.txt";
+        String hypoFName = "data/wordnet/hyponyms16.txt";
         WordNet wn = new WordNet(sysFName, hypoFName);
         // test simple case
         String[] entry = {"change", "bbb"};
