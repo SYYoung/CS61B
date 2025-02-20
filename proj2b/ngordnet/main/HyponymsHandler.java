@@ -45,9 +45,7 @@ public class HyponymsHandler extends NgordnetQueryHandler {
             // pass the input set, k, start year, end year
             // return the result set
             HyponymsFilter hyFilter = new HyponymsFilter(ngm);
-            List<String> tempList = hyFilter.filterByPopularity(startYear, endYear, k, resultSet);
-            if (tempList.size() > k)
-                resultList = tempList.subList(0, k-1);
+            resultList = hyFilter.filterByPopularity(startYear, endYear, k, resultSet);
         }
         //resultList = new LinkedList<>(resultSet);
         Collections.sort(resultList);

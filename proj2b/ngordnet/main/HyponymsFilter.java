@@ -11,18 +11,18 @@ public class HyponymsFilter {
         this.ngm = ngm;
     }
 
-    public List<String> filterByPopularity(HashSet<String> inputSet) {
+    public List<String> filterByPopularity(int k, HashSet<String> inputSet) {
         int startYear = 1900;
         int endYear = 2020;
 
-        List<String> resultList = filterByPopularity(startYear, endYear, inputSet);
+        List<String> resultList = filterByPopularity(startYear, endYear, k,  inputSet);
         return resultList;
     }
 
     public List<String> filterByPopularity(int startYear, int endYear, int k,
                                           HashSet<String> inputSet) {
         TreeMap<Double, String> popularMap = new TreeMap<>(Comparator.reverseOrder());
-        List<String> resultSet = new LinkedList<>();
+        List<String> resultList = new LinkedList<>();
         for (String s : inputSet) {
             // get the popularity figure of each word, add them up. if non-zero, put it
             // popularMap
@@ -44,9 +44,13 @@ public class HyponymsFilter {
              */
         }
         if (!popularMap.isEmpty()) {
+            List<String> tmpList = new LinkedList<>(popularMap.values());
+            if (k < popularMap.size())
+                resultList = tmpList.subList(0, k);
+            else
+                resultList = tmpList;
 
         }
-            String[] resultSet = (String[]) popularMap.values().toArray();
-        return resultSet;
+        return resultList;
     }
 }
