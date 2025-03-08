@@ -45,6 +45,7 @@ public class KnightWorld {
             endY = startY + holeSize;
         for (int x = startX; x < endX; x++) {
             for (int y = startY; y < endY; y++) {
+                if (x < 0 || y < 0) continue;
                 tiles[x][y] = Tileset.NOTHING;
             }
         }
@@ -52,7 +53,7 @@ public class KnightWorld {
 
     private void assignWholeLineHole(int startX, int startY) {
         int offset = holeSize * 5;
-        int firstX = startX % offset;
+        int firstX = startX % offset - offset;
         for (int x = firstX; x < wd; x=x+offset) {
             assignHole(x, startY);
         }
