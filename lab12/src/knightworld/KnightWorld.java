@@ -35,12 +35,12 @@ public class KnightWorld {
 
     private void assignHole(int startX, int startY) {
         int endX, endY;
-        if (startX + holeSize >= wd)
-            endX = wd - 1;
+        if (startX + holeSize > wd)
+            endX = wd;
         else
             endX = startX + holeSize;
-        if (startY + holeSize >= ht)
-            endY = ht - 1;
+        if (startY + holeSize > ht)
+            endY = ht;
         else
             endY = startY + holeSize;
         for (int x = startX; x < endX; x++) {
