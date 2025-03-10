@@ -67,7 +67,17 @@ public class KnightWorld {
         int startY = rand.nextInt(ht-1);
         // 1. fill the position with hole
         assignHole(startX, startY);
+        // here are the holes should be draw:
+        // 1. startX, startY and all the rows with y + offset
         assignWholeLineHole(startX, startY);
+        // 2. startX-2, startY+1 and all the rows with vertical offset
+        assignWholeLineHole(startX-2*holeSize, startY+1*holeSize);
+        // 3. startX+2, startY-1 and all the vertical offset
+        assignWholeLineHole(startX+2*holeSize, startY-1*holeSize);
+        // 4. startX+1, startY+2 and all vertical offset
+        assignWholeLineHole(startX+1*holeSize, startY+2*holeSize);
+        // 5. startX-1, startY-2 and all vertical offset
+        assignWholeLineHole(startX-1*holeSize, startY-2*holeSize);
     }
 
     public KnightWorld(int width, int height, int holeSize) {
