@@ -37,11 +37,11 @@ public class RandomWorldDemo {
     private static TETile randomTile() {
         // The following call to nextInt() uses a bound of 3 (this is not a seed!) so
         // the result is bounded between 0, inclusive, and 3, exclusive. (0, 1, or 2)
-        int tileNum = RANDOM.nextInt(6); // original: bound = 3
+        int tileNum = RANDOM.nextInt(3); // original: bound = 3
         return switch (tileNum) {
             case 0 -> Tileset.WALL;
             case 1 -> Tileset.FLOWER;
-            case 2 -> Tileset.LOCKED_DOOR;
+            case 20 -> Tileset.LOCKED_DOOR;
             case 3 -> Tileset.FLOOR;
             case 4 -> Tileset.UNLOCKED_DOOR;
             default -> Tileset.NOTHING;

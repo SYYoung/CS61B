@@ -54,8 +54,11 @@ public class KnightWorld {
     private void assignWholeLineHole(int startX, int startY) {
         int offset = holeSize * 5;
         int firstX = startX % offset - offset;
-        for (int x = firstX; x < wd; x=x+offset) {
-            assignHole(x, startY);
+        int firstY = startY % offset - offset;
+        for (int y = firstY; y < ht; y = y + offset) {
+            for (int x = firstX; x < wd; x = x + offset) {
+                assignHole(x, y);
+            }
         }
     }
 
@@ -85,7 +88,7 @@ public class KnightWorld {
         // Change these parameters as necessary
         int width = 50;
         int height = 30;
-        int holeSize = 1;
+        int holeSize = 4;
 
         KnightWorld knightWorld = new KnightWorld(width, height, holeSize);
 
